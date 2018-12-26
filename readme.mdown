@@ -15,10 +15,7 @@
 
 Make sure the browser driver is on your path.
 
-* [FireFox Driver ](https://code.google.com/p/selenium/wiki/FirefoxDriver)
-* [Chrome Driver](https://sites.google.com/a/chromium.org/chromedriver/)
-* [IE Driver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver)
-* [Opera Driver](https://code.google.com/p/selenium/wiki/OperaDriver)
+* [Selenium Documentation ](https://www.seleniumhq.org/docs/)
 
 
 
