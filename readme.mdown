@@ -1,0 +1,38 @@
+
+# Pub Test / Functional Test /Regression Testing #
+
+## Requirements ##
+
+1. JDK 8
+2. Maven
+3. Browser Drivers (see section below)
+
+## install selenium ##
+
+    brew install selenium-server-standalone
+
+### Browser Drivers ###
+
+Make sure the browser driver is on your path.
+
+* [FireFox Driver ](https://code.google.com/p/selenium/wiki/FirefoxDriver)
+* [Chrome Driver](https://sites.google.com/a/chromium.org/chromedriver/)
+* [IE Driver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver)
+* [Opera Driver](https://code.google.com/p/selenium/wiki/OperaDriver)
+
+
+
+## Test Execution ##
+
+### Locally ###
+    mvn clean -Dbrowser=chrome -DremoteDriver=false -Dgroups={groupName} verify
+#### Example :
+    mvn clean -Dbrowser=chrome -DremoteDriver=false -Dgroups=BBCSportStory verify
+
+### remote on SauceLabs or remote grid ###
+
+    mvn clean -DgridURL=<URL> -Dbrowser=chrome -DremoteDriver=true -Dgroups=BBCSportStory verify
+
+
+## surefire-reports ##
+    After execution navigate to /target/surefire-reports for detailed execution report.

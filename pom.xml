@@ -1,0 +1,150 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.upside.bbc</groupId>
+    <artifactId>upside</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>bbc</name>
+
+    <properties>
+        <!-- Selenium Dependency Versions-->
+        <upside.selenium.browser.java.version>1.8</upside.selenium.browser.java.version>
+        <selenium.remote.driver.version>3.7.1</selenium.remote.driver.version>
+        <assertj-core.version>3.8.0</assertj-core.version>
+        <tesing.version>6.11</tesing.version>
+        <selenium.support.version>3.9.1</selenium.support.version>
+        <selenium.java.version>3.7.0</selenium.java.version>
+        <slf4j.version>1.7.24</slf4j.version>
+
+        <!--Plugin Versions-->
+        <upside.selenium.browser.maven-compiler-plugin.version>3.7.0</upside.selenium.browser.maven-compiler-plugin.version>
+        <upside.selenium.browser.maven-failsafe-plugin.version>2.20.1</upside.selenium.browser.maven-failsafe-plugin.version>
+        <!--default Browser -->
+        <upside.selenium.browser.browser>chrome</upside.selenium.browser.browser>
+        <upside.selenium.browser.threads>1</upside.selenium.browser.threads>
+        <!-- remote execution setup -->
+        <upside.selenium.browser.remote/>
+        <upside.selenium.browser.SELENIUM_HUB_URL/>
+        <upside.selenium.browser.platform/>
+        <upside.selenium.browser.browserVersion/>
+        <upside.selenium.browser.jobname/>
+        <upside.selenium.browser.proxyEnabled>false</upside.selenium.browser.proxyEnabled>
+        <upside.selenium.browser.proxyHost/>
+        <groups/>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.10</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Selenium Dependencies -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>${selenium.support.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>${selenium.remote.driver.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.detro.ghostdriver</groupId>
+                    <artifactId>phantomjsdriver</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${tesing.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>selenium-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>${upside.selenium.browser.java.version}</source>
+                            <target>${upside.selenium.browser.java.version}</target>
+                        </configuration>
+                        <version>${upside.selenium.browser.maven-compiler-plugin.version}</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${upside.selenium.browser.maven-failsafe-plugin.version}</version>
+                        <configuration>
+                            <parallel>methods</parallel>
+                            <threadCount>${upside.selenium.browser.threads}</threadCount>
+                            <systemPropertyVariables>
+                                <browser>${upside.selenium.browser.browser}</browser>
+                                <screenshotDirectory>${project.build.directory}/screenshots</screenshotDirectory>
+                                <remoteDriver>${upside.selenium.browser.remote}</remoteDriver>
+                                <gridURL>${upside.selenium.browser.SELENIUM_HUB_URL}</gridURL>
+                                <desiredPlatform>${upside.selenium.browser.platform}</desiredPlatform>
+                                <desiredBrowserVersion>${upside.selenium.browser.browserVersion}</desiredBrowserVersion>
+                                <proxyEnabled>${upside.selenium.browser.proxyEnabled}</proxyEnabled>
+                                <proxyHost>${upside.selenium.browser.proxyHost}</proxyHost>
+                                <name>${upside.selenium.browser.jobname}</name>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <!--This goal makes the build fail if you have test failures-->
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.21.0</version>
+                        <configuration>
+                            <groups>${groups}</groups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
