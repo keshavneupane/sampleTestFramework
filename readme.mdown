@@ -1,5 +1,5 @@
 
-# Pub Test / Functional Test /Regression Testing #
+# Sample Test #
 
 ## Requirements ##
 
@@ -22,6 +22,7 @@ Make sure the browser driver is on your path.
 ## Test Execution ##
 
 ### Locally ###
+clone the repo and run
     mvn clean -Dbrowser=chrome -DremoteDriver=false -Dgroups={groupName} verify
 #### Example :
     mvn clean -Dbrowser=chrome -DremoteDriver=false -Dgroups=BBCSportStory verify
