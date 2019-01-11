@@ -1,5 +1,9 @@
 
 # Sample Test #
+This is a sample test which does the following 
+1. Opens bbc.com on browser 
+2. Navigates to Sports section
+3. Clicks the feature artcile and verifies the article was indeed opened.
 
 ## Requirements ##
 
